@@ -15,16 +15,19 @@ public class Account {
     private int numberOfTransactions;
 
 
-    public void withdraw(double amount) {
-        balance -= amount;
-        numberOfTransactions++;
+    public boolean withdraw(double amount) {
+        if ((amount <= 0) || (amount > this.balance)) return false;
+        this.balance -= amount;
+        this.numberOfTransactions++;
+        return true;
     }
 
-    public void deposit(double amount) {
-        balance += amount;
-        numberOfTransactions++;
+    public boolean deposit(double amount) {
+        if (amount <= 0) return false;
+        this.balance += amount;
+        this.numberOfTransactions++;
+        return true;
     }
-
 
 
     public void testerAccount() {
@@ -44,14 +47,20 @@ public class Account {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Give the amount you want to deposit: ");
-        account.deposit(Long.parseLong(scanner.nextLine()));
-        System.out.println("After Deposit Balance is "
-                + account.getBalance() + "€ and number of transactions is " + account.getNumberOfTransactions() + ".");
+        if (account.deposit(Double.parseDouble(scanner.nextLine()))) {
+            System.out.println("After Deposit Balance is "
+                    + account.getBalance() + "€ and number of transactions is " + account.getNumberOfTransactions() + ".");
+        } else {
+            System.out.println("Error: Invalid Amount to deposit");
+        }
 
         System.out.println("Give the amount you want to withdraw: ");
-        account.withdraw(Long.parseLong(scanner.nextLine()));
-        System.out.println("After Withdraw Balance is "
-                + account.getBalance() + "€ and number of transactions is " + account.getNumberOfTransactions() + ".");
+        if (account.withdraw(Double.parseDouble(scanner.nextLine()))) {
+            System.out.println("After Withdraw Balance is "
+                    + account.getBalance() + "€ and number of transactions is " + account.getNumberOfTransactions() + ".");
+        } else {
+            System.out.println("Error: Invalid Amount to withdraw");
+        }
 
         System.out.println("Constructor after changes: " + account.toString());
     }

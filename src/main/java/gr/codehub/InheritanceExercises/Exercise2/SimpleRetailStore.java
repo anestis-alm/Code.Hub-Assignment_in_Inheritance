@@ -21,8 +21,4 @@ public class SimpleRetailStore implements IStore {
         return totalSellBalance - totalBuyBalance;
     }
 
-    @Override
-    public List<Product> getInventory() {
-        return null;
-    }
 }

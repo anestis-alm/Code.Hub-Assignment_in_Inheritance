@@ -21,5 +21,6 @@ public class ManageExercise2 {
         System.out.println(invStore.getRevenue());
         invStore.sell(x2);
         invStore.getInventory().forEach(System.out::println);
+        invStore.reset();
     }
 }

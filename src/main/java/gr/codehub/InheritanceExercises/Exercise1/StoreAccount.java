@@ -1,10 +1,8 @@
 package gr.codehub.InheritanceExercises.Exercise1;
 
-import lombok.Data;
-
 import java.util.Scanner;
 
-@Data
+
 public class StoreAccount extends Account {
     private String storeName;
     private AccountCategory accountCategory;
@@ -23,6 +21,21 @@ public class StoreAccount extends Account {
         this.accountCategory = accountCategory;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public AccountCategory getAccountCategory() {
+        return accountCategory;
+    }
+
+    public void setAccountCategory(AccountCategory accountCategory) {
+        this.accountCategory = accountCategory;
+    }
 
     public void changeCategory(StoreAccount storeAccount) {
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +47,13 @@ public class StoreAccount extends Account {
         String input = scanner.nextLine();
         String category = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
 
-        storeAccount.setAccountCategory(AccountCategory.valueOf(category));
+        try {
+            storeAccount.setAccountCategory(AccountCategory.valueOf(category));
+        } catch(Exception e){
+            System.out.println("Invalid Category");
+        } finally {
+            System.out.println("Category is: " + storeAccount.getAccountCategory());
+        }
     }
 
     @Override
@@ -65,16 +84,22 @@ public class StoreAccount extends Account {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Give the amount you want to deposit: ");
-        storeAccount.deposit(Long.parseLong(scanner.nextLine()));
-        System.out.println("After Deposit Balance is "
-                + storeAccount.getBalance() + "€ and number of transactions is " + storeAccount.getNumberOfTransactions() + ".");
+        if (storeAccount.deposit(Double.parseDouble(scanner.nextLine()))) {
+            System.out.println("After Deposit Balance is "
+                    + storeAccount.getBalance() + "€ and number of transactions is " + storeAccount.getNumberOfTransactions() + ".");
+        } else {
+            System.out.println("Error: Invalid Amount to deposit");
+        }
 
         System.out.println("Give the amount you want to withdraw: ");
-        storeAccount.withdraw(Long.parseLong(scanner.nextLine()));
-        System.out.println("After Withdraw Balance is "
-                + storeAccount.getBalance() + "€ and number of transactions is " + storeAccount.getNumberOfTransactions() + ".");
-
+        if (storeAccount.withdraw(Double.parseDouble(scanner.nextLine()))) {
+            System.out.println("After Withdraw Balance is "
+                    + storeAccount.getBalance() + "€ and number of transactions is " + storeAccount.getNumberOfTransactions() + ".");
+        } else {
+            System.out.println("Error: Invalid Amount to withdraw");
+        }
         storeAccount.changeCategory(storeAccount);
+
         System.out.println("Constructor after changes: " + storeAccount.toString());
     }
 

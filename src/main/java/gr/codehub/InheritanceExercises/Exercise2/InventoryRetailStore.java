@@ -14,7 +14,7 @@ public class InventoryRetailStore implements IStore {
     }
 
     public List<Product> getInventory() {
-      return products;
+        return products;
     }
 
     public void reset() {
@@ -33,7 +33,8 @@ public class InventoryRetailStore implements IStore {
         if (products.contains(product)) {
             products.remove(product);
         } else {
-            System.out.println("Error:: Can't remove product " + product.getName() + ", the product isn't in your inventory.");
+            System.out.println("Error:: Can't remove product " + product.getName()
+                    + ", the product isn't in your inventory.");
 
         }
     }
